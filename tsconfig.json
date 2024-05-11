@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "outDir": "./dist",
+        "strict": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "skipLibCheck": true,
+        "baseUrl": ".",
+        "paths": {
+            "@src/*": ["./src/*"],
+            "@entity/*": ["./src/entity/*"],
+            "@repository/*": ["./src/repository/*"],
+            "@useCase/*": ["./src/useCase/*"],
+            "@routes/*": ["./src/routes/*"],
+            "@utils/*": ["./src/utils/*"]
+        }
+    },
+    "include": ["./**/*.ts"],
+}
