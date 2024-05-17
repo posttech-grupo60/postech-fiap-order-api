@@ -13,14 +13,14 @@ export default class CreateProduct {
   constructor(private productRepository: IProductRepository) {}
 
   async execute(input: InputCreateProduct): Promise<Product> {
-    const product = new Product(
-      null,
-      input.name,
-      input.description,
-      input.price,
-      input.images,
-      input.category
-    );
+    const { name, description, price, images, category } = input;
+    const product = new Product({
+      name,
+      description,
+      price,
+      images,
+      category
+    });
 
     return await this.productRepository.save(product);
   }

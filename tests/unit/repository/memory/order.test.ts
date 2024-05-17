@@ -10,16 +10,15 @@ describe('Memory Repository Order', () => {
     let memoryOrderRepository: MemoryOrderRepository;
     beforeAll(async () => {
         memoryOrderRepository = new MemoryOrderRepository();
-        const order = new Order(
-            null,
-            new Customer('1','João da Silva',new CPF('191.639.050-19')),
-            [
+        const order = new Order({
+            customer: new Customer({id: 1, name: 'João da Silva', cpf: new CPF('191.639.050-19')}),
+            items: [
                 {
-                    product: new Product('1','Hamburguer', 'Hamburguer, pão, queijo, alface e tomate', 10.00,['img'], "LANCHE"),
+                    product: new Product({id:1, name:'Hamburguer', description:'Hamburguer, pão, queijo, alface e tomate', price:10.00, images: ['img'], category: "LANCHE"}),
                     quantity: 1
                 }
             ]
-        );
+        });
         await memoryOrderRepository.save(order);
     });
 
@@ -30,16 +29,16 @@ describe('Memory Repository Order', () => {
 
 
     test('Should create order', async () => {
-        const order = new Order(
-            '2',
-            new Customer('2','Maria Pereira',new CPF('191.639.050-19')),
-            [
+        const order = new Order({
+            id: 2,
+            customer: new Customer({id: 2,name: 'Maria Pereira', cpf: new CPF('191.639.050-19')}),
+            items: [
                 {
-                    product: new Product('2','Coca cola', '600ml', 8.00,['img'], "BEBIDA"),
+                    product: new Product({id:2,name:'Coca cola', description: '600ml', price:8.00, images: ['img'], category: "BEBIDA"}),
                     quantity: 1
                 }
             ]
-        );
+        });
         const response = await memoryOrderRepository.save(order);
         expect(response.status).toBe(OrderStatus.RECEIVED);
         expect(response.items.length).toBe(1);
@@ -52,12 +51,13 @@ describe('Memory Repository Order', () => {
     });
     
     test('Should get order by id', async () => {
-        expect(async () => await memoryOrderRepository.findById('1'))
+        expect(async () => await memoryOrderRepository.findById(0))
             .rejects
             .toThrow('Order not found!');
         
         const [orderFound] = await memoryOrderRepository.list();
-        const orders = await memoryOrderRepository.findById(orderFound?.id ?? '');
+        if(!orderFound?.id) throw new Error('Order not found!');
+        const orders = await memoryOrderRepository.findById(orderFound.id);
         expect(orders.id).toBe(orderFound?.id);
         expect(orders.status).toBe(orderFound?.status);
     });
@@ -70,7 +70,7 @@ describe('Memory Repository Order', () => {
         expect(orderUpdated.status).toBe(productToUpdate?.status);
         expect(orderUpdated.items[0].quantity).toBe(2);
 
-        const orderNotFound = new Order('3', new Customer('3','Maria Pereira',new CPF('191.639.050-19')), []);
+        const orderNotFound = new Order({id: 3, customer: new Customer({id:3, name: 'Maria Pereira',cpf: new CPF('191.639.050-19')}), items: []});
         expect(async () => await memoryOrderRepository.update(orderNotFound))
             .rejects
             .toThrow('Order not found!');

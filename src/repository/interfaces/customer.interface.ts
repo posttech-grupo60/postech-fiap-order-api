@@ -7,5 +7,5 @@ export default interface ICustomerRepository {
 
 type InputGet = {
   cpf?: string;
-  id?: string;
+  id?: number;
 };

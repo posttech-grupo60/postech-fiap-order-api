@@ -10,6 +10,7 @@ export default defineConfig({
       "@src/*": "./src/*",
       "@entity/*": "./src/entity/*",
       "@repository/*": "./src/repository/*",
+      "@gateway/*": "./src/gateway/*",
       "@useCase/*": "./src/useCase/*",
       "@routes/*": "./src/routes/*",
       "@utils/*": "./src/utils/*"

@@ -4,11 +4,11 @@ import ICustomerRepository from "../interfaces/customer.interface";
 export default class MemoryCustomerRepository implements ICustomerRepository {
   private readonly customer: Customer[] = [];
 
-  async get({ cpf, id }: { cpf?: string; id?: string }): Promise<Customer> {
+  async get({ cpf, id }: { cpf?: string; id?: number }): Promise<Customer> {
     let customer;
     if (cpf) {
       cpf = cpf.replace(/[^\d]+/g, "");
-      customer = this.customer.find((customer) => customer.cpf.get() === cpf);
+      customer = this.customer.find((customer) => customer?.cpf?.get() === cpf);
     }
     if (id) customer = this.customer.find((customer) => customer.id === id);
     if (!customer) throw new Error(`Customer not found!`);

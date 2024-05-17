@@ -9,7 +9,7 @@ export default class MemoryProductRepository implements IProductRepository {
     return this.products.filter((product) => product.category === category);
   }
 
-  async get(id: string): Promise<Product> {
+  async get(id: number): Promise<Product> {
     const product = this.products.find((product) => product.id === id);
     if (!product) throw new Error("Product not found");
     return product;
@@ -26,7 +26,7 @@ export default class MemoryProductRepository implements IProductRepository {
     this.products[productIndex] = product;
   }
 
-  async remove(id: string): Promise<void> {
+  async remove(id: number): Promise<void> {
     const productIndex = this.products.findIndex((p) => p.id === id);
     if (productIndex === -1) throw new Error("Product not found");
     this.products.splice(productIndex, 1);

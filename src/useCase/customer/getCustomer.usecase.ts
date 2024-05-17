@@ -14,5 +14,5 @@ export default class GetCustomer {
 
 type Input = {
   cpf?: string;
-  id?: string;
+  id?: number;
 };

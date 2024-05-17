@@ -1,4 +1,4 @@
-import MemoryProductRepository from '@src/repository/MemoryRepository/MemoryProduct.repository';
+import MongoDBProductRepository from '@src/repository/MongoRepository/product.repository';
 import CreateProduct from '@src/useCase/product/createProduct.usecase';
 import GetProductById from '@src/useCase/product/getProductById.usecase';
 import ListAllProducts from '@src/useCase/product/listAllProducts.usecase';
@@ -8,7 +8,7 @@ const router = Router();
 
 router.post('/', async (req, res) => {
     try {
-        const productRepository = new MemoryProductRepository();
+        const productRepository = new MongoDBProductRepository();
         const createProduct = new CreateProduct(productRepository);
         await createProduct.execute(req.body);
         return res.status(201).json({message: 'Produto criado com sucesso', status: 201});
@@ -19,7 +19,7 @@ router.post('/', async (req, res) => {
 
 router.get('/', (_, res) => {
     try {
-        const productRepository = new MemoryProductRepository();
+        const productRepository = new MongoDBProductRepository();
         const listAllProducts = new ListAllProducts(productRepository);
         const products = listAllProducts.execute();
         return res.status(200).json(products);
@@ -31,9 +31,9 @@ router.get('/', (_, res) => {
 //Retorna produto específico
 router.get('/:id', (req, res) => {
     try {
-        const productRepository = new MemoryProductRepository();
+        const productRepository = new MongoDBProductRepository();
         const getProductById = new GetProductById(productRepository);
-        const product = getProductById.execute({id: req.params.id});
+        const product = getProductById.execute({id: Number(req.params.id)});
         return res.status(200).json(product);
     } catch (error: any) {
         if(error.message === 'Product not found'){
@@ -46,9 +46,9 @@ router.get('/:id', (req, res) => {
 //Deleta produto
 router.get('/:id', (req, res) => {
     try {
-        const productRepository = new MemoryProductRepository();
+        const productRepository = new MongoDBProductRepository();
         const getProductById = new GetProductById(productRepository);
-        const product = getProductById.execute({id: req.params.id});
+        const product = getProductById.execute({id: Number(req.params.id)});
         return res.status(200).json(product);
     } catch (error: any) {
         if(error.message === 'Product not found'){

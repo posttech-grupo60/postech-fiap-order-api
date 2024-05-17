@@ -2,7 +2,7 @@ import Product from "../../entity/product";
 import IProductRepository from "../../repository/interfaces/product.interface";
 
 interface InputGetProductById {
-    id: string
+    id: number
 };
 
 export default class GetProductById {

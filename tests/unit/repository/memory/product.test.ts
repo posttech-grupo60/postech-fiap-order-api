@@ -11,8 +11,8 @@ describe('Memory Repository Product', () => {
 
     test('Should insert and list products', async () => {
         const memoryProductRepository = new MemoryProductRepository();
-        const productLanche = new Product(null, 'Hamburger', 'Delicious hamburger', 10.99, ['image1.jpg', 'image2.jpg'], 'LANCHE');
-        const productSobremesa = new Product(null, 'Pudim', 'Delicious pudim', 5.99, ['image1.jpg', 'image2.jpg'], 'SOBREMESA');
+        const productLanche = new Product({name: 'Hamburger', description: 'Delicious hamburger', price: 10.99, images: ['image1.jpg', 'image2.jpg'], category: 'LANCHE'});
+    const productSobremesa = new Product({name: 'Pudim', description: 'Delicious pudim', price: 5.99, images: ['image1.jpg', 'image2.jpg'], category: 'SOBREMESA'});
         await memoryProductRepository.save(productLanche);
         await memoryProductRepository.save(productSobremesa);
         const getAllProducts = await memoryProductRepository.list();
@@ -28,25 +28,25 @@ describe('Memory Repository Product', () => {
     
     test('Should get product by id', async () => {
         const memoryProductRepository = new MemoryProductRepository();
-        const product = new Product('1', 'Hamburger', 'Delicious hamburger', 10.99, ['image1.jpg', 'image2.jpg'], 'LANCHE');
+        const product = new Product({id: 1, name: 'Hamburger', description: 'Delicious hamburger', price: 10.99, images: ['image1.jpg', 'image2.jpg'], category: 'LANCHE'});
         await memoryProductRepository.save(product);
-        const productFound = await memoryProductRepository.get('1');
+        const productFound = await memoryProductRepository.get(1);
         expect(productFound.id).toEqual(product.id);
         const productNotFound = async () => {
-            return await memoryProductRepository.get('3')
+            return await memoryProductRepository.get(3)
         };
         await expect(async () => await productNotFound()).rejects.toThrowError("Product not found");
     });
 
     test('Should update product', async () => {
         const memoryProductRepository = new MemoryProductRepository();
-        const product = new Product('1', 'Hamburger', 'Delicious hamburger', 10.99, ['image1.jpg', 'image2.jpg'], 'LANCHE');
+        const product = new Product({id: 1, name: 'Hamburger', description: 'Delicious hamburger', price: 10.99, images: ['image1.jpg', 'image2.jpg'], category: 'LANCHE'});
         await memoryProductRepository.save(product);
-        const productUpdated = new Product('1', 'Hamburger', 'Delicious hamburger', 15.99, ['image1.jpg', 'image2.jpg'], 'LANCHE');
+        const productUpdated = new Product({id: 1, name: 'Hamburger', description: 'Delicious hamburger', price: 15.99, images: ['image1.jpg', 'image2.jpg'], category: 'LANCHE'});
         await memoryProductRepository.update(productUpdated);
-        const productFound = await memoryProductRepository.get('1');
+        const productFound = await memoryProductRepository.get(1);
         expect(productFound.price).toEqual(productUpdated.price);
-        const productNotFound = new Product('3', 'Hamburger', 'Delicious hamburger', 15.99, ['image1.jpg', 'image2.jpg'], 'LANCHE');
+        const productNotFound = new Product({id: 3, name: 'Hamburger', description: 'Delicious hamburger', price: 15.99, images: ['image1.jpg', 'image2.jpg'], category: 'LANCHE'});
         const execProductNotFound = async () => {
             return await memoryProductRepository.update(productNotFound)
         };
@@ -56,11 +56,11 @@ describe('Memory Repository Product', () => {
 
     test('Should remove product', async () => {
         const memoryProductRepository = new MemoryProductRepository();
-        const product = new Product('1', 'Hamburger', 'Delicious hamburger', 10.99, ['image1.jpg', 'image2.jpg'], 'LANCHE');
+        const product = new Product({id: 1, name: 'Hamburger', description: 'Delicious hamburger', price: 10.99, images: ['image1.jpg', 'image2.jpg'], category: 'LANCHE'});
         await memoryProductRepository.save(product);
-        await memoryProductRepository.remove('1');
+        await memoryProductRepository.remove(1);
         const productNotFound = async () => {
-            return await memoryProductRepository.remove('1')
+            return await memoryProductRepository.remove(1)
         };
         await expect(async () => await productNotFound()).rejects.toThrowError("Product not found");
     });

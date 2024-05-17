@@ -7,7 +7,7 @@ export default class CreateCustomer {
 
   async execute(input: Input) {
     return await this.customerRepository.save(
-      new Customer(input.id, input.name, new CPF(input.cpf))
+      new Customer({name: input.name, cpf: new CPF(input.cpf)})
     );
   }
 }

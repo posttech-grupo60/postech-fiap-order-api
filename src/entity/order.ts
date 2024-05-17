@@ -2,27 +2,38 @@ import Customer from "./customer";
 import Product from "./product";
 
 export default class Order {
-  id?: string | null;
+  id?: number;
+  customer: Customer;
+  items: ProductAndQuantity[];
   status: OrderStatus;
   createdAt: Date;
 
-  constructor(
-    id: null | string,
-    readonly customer: Customer,
-    readonly items: ProductAndQuantity[]
-  ) {
+  constructor({id, customer, items}: ContructorOrder) {
     this.id = id;
+    this.customer = customer;
+    this.items = items;
     this.status = OrderStatus.RECEIVED;
     this.createdAt = new Date();
   }
 
-  setId(id: string) {
+  setId(id: number) {
     this.id = id;
   }
 
   setStatus(status: OrderStatus) {
     this.status = status;
   }
+
+  getTotal() {
+    return this.items.reduce((acc, item) => {
+      return acc + (item.product.price * item.quantity);
+    }, 0);
+  }
+}
+type ContructorOrder = {
+  id?: number,
+  customer: Customer,
+  items: ProductAndQuantity[]
 }
 
 export type ProductAndQuantity = {

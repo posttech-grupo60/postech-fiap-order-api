@@ -1,17 +1,30 @@
 export default class Product {
-  id?: string | null = null;
-  constructor(
-    id: string | null,
-    readonly name: string,
-    readonly description: string,
-    readonly price: number,
-    readonly images: string[],
-    readonly category: "LANCHE" | "ACOMPANHAMENTO" | "BEBIDA" | "SOBREMESA"
-  ) {
+  id?: number;
+  name: string;
+  description: string;
+  price: number;
+  images: string[];
+  category: "LANCHE" | "ACOMPANHAMENTO" | "BEBIDA" | "SOBREMESA";
+
+  constructor({ id, name, description, price, images, category }: ConstructorProduct) {
     this.id = id;
+    this.name = name;
+    this.description = description;
+    this.price = price;
+    this.images = images;
+    this.category = category;
   }
 
-  setID = (id: string) => {
+  setID = (id: number) => {
     this.id = id;
   };
+}
+
+type ConstructorProduct = {
+  id?: number,
+  name: string,
+  description: string,
+  price: number,
+  images: string[],
+  category: "LANCHE" | "ACOMPANHAMENTO" | "BEBIDA" | "SOBREMESA"
 }
