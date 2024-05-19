@@ -16,11 +16,15 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: 20
+
     - name: Install Dependencies
       run: npm install
       
-    - name: Install Dependencies
+    - name: Build project
       run: npm run build
+
+    - name: Replace alias
+      run: npm run alias
 
     - name: Generate deployment package
       run: zip -r deploy-${{github.sha}}.zip * .[^.]* -x "**node_modules**"
