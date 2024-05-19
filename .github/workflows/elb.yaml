@@ -23,7 +23,7 @@ jobs:
       run: npm run build
 
     - name: Generate deployment package
-      run: cd dist/src && zip -r deploy-${{github.sha}}.zip .
+      run: zip -r deploy-${{github.sha}}.zip .
 
     - name: Deploy to EB
       uses: einaregilsson/beanstalk-deploy@v22
@@ -35,4 +35,4 @@ jobs:
         environment_name: Api-order-fiap-env
         version_label: ${{ github.run_number }}
         region: us-east-1
-        deployment_package: dist/src/deploy-${{github.sha}}.zip
+        deployment_package: deploy-${{github.sha}}.zip
