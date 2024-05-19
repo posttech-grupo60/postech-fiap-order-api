@@ -69,6 +69,7 @@ vi.mock('@gateway/payment.gateway', () => {
 vi.mock('@gateway/production.gateway', () => {
     const PaymentGateway = vi.fn();
     PaymentGateway.prototype.send = vi.fn((obj) => {
+        console.log("obj >>>",obj);
         return undefined;
     });
     return {default: PaymentGateway};

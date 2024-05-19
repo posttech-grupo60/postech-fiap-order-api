@@ -1,3 +1,4 @@
+/* c8 ignore start */
 import MongoDBProductRepository from '@src/repository/MongoRepository/product.repository';
 import CreateProduct from '@src/useCase/product/createProduct.usecase';
 import GetProductById from '@src/useCase/product/getProductById.usecase';

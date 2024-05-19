@@ -16,6 +16,7 @@ export default class MemoryProductRepository implements IProductRepository {
   }
 
   async save(product: Product): Promise<Product> {
+    product.setID(this.products.length + 1);
     this.products.push(product);
     return product;
   }
