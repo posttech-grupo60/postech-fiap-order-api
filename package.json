@@ -34,7 +34,7 @@
     "vitest": "^1.5.2"
   },
   "scripts": {
-    "dev": "nodemon -e ts --exec \"ts-node -r tsconfig-paths/register src/index.ts\"",
+    "dev": "nodemon -e ts --exec \"ts-node -r tsconfig-paths/register src/app.ts\"",
     "test": "vitest --watch",
     "coverage": "vitest --ui --coverage.enabled=true",
     "clean": "rm -rf dist",
