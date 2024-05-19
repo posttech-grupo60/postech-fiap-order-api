@@ -1,8 +1,8 @@
 import IProductRepository from "../../repository/interfaces/product.interface";
 
 interface InputDeleteProduct {
-    id: string
-};
+    id: number
+}
 
 export default class DeleteProduct {
   constructor(private productRepository: IProductRepository) {}

@@ -14,6 +14,7 @@ const main = async () => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     
+    app.use('/health',(_,res) => {res.status(200).send('OK')});
     app.use('/order',orderRoute);
     app.use('/product',productRoute);
     app.use('/customer',customerRoute);

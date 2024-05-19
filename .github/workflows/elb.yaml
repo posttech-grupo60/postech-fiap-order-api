@@ -1,0 +1,38 @@
+name: Deploy master
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Checkout source code
+      uses: actions/checkout@v2
+
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+    - name: Install Dependencies
+      run: npm install
+      
+    - name: Install Dependencies
+      run: npm run build
+
+    - name: Generate deployment package
+      run: zip -r deploy.zip ./dist/src 
+
+    - name: Deploy to EB
+      uses: einaregilsson/beanstalk-deploy@v22
+      with:
+        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
+        application_name: api-order-fiap
+        environment_name: Api-order-fiap-env
+        version_label: 1
+        region: us-east-1
+        deployment_package: deploy.zip

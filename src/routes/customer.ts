@@ -1,7 +1,8 @@
 /* c8 ignore start */
-import MongoDBCustomerRepository from '@src/repository/MongoRepository/customer.repository';
-import CreateCustomer from '@src/useCase/customer/createCustomer.usecase';
-import GetCustomer from '@src/useCase/customer/getCustomer.usecase';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import MongoDBCustomerRepository from '@repository/MongoRepository/customer.repository';
+import CreateCustomer from '@useCase/customer/createCustomer.usecase';
+import GetCustomer from '@useCase/customer/getCustomer.usecase';
 import {Router} from 'express';
 
 const router = Router();

@@ -3,7 +3,7 @@ import IProductRepository from "../../repository/interfaces/product.interface";
 
 interface InputGetProductById {
     id: number
-};
+}
 
 export default class GetProductById {
   constructor(private productRepository: IProductRepository) {}
