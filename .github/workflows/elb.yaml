@@ -35,4 +35,3 @@ jobs:
         environment_name: Api-order-fiap-env
         version_label: 1
         region: us-east-1
-        deployment_package: deploy.zip
