@@ -14,7 +14,7 @@ describe('UseCase Product', () => {
     test('Delete product', async () => {
         const productRepository = new MemoryProductRepository();
         const createProduct = new DeleteProduct(productRepository);
-        const response = await createProduct.execute({id: '1'});
+        const response = await createProduct.execute({id: 1});
         expect(response).toBeUndefined();
     })
 });

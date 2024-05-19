@@ -5,7 +5,7 @@ import {describe, expect, test} from 'vitest';
 describe('Adapter Product', () => {
     test('Should create convert object to Customer', () => {
         const response = ProductAdapter.create({
-            id: '1',
+            id: 1,
             name: "Hamburguer",
             category: "LANCHE",
             description: "Hamburguer de carne",
@@ -13,7 +13,7 @@ describe('Adapter Product', () => {
             price: 10,
         });
         expect(response).toBeInstanceOf(Product);
-        expect(response.id).toBe('1');
+        expect(response.id).toBe(1);
         expect(response.name).toBe('Hamburguer');
         expect(response.category).toBe('LANCHE');
         expect(response.description).toBe('Hamburguer de carne');

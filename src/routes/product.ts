@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* c8 ignore start */
-import MongoDBProductRepository from '@src/repository/MongoRepository/product.repository';
-import CreateProduct from '@src/useCase/product/createProduct.usecase';
-import GetProductById from '@src/useCase/product/getProductById.usecase';
-import ListAllProducts from '@src/useCase/product/listAllProducts.usecase';
+import MongoDBProductRepository from '@repository/MongoRepository/product.repository';
+import CreateProduct from '@useCase/product/createProduct.usecase';
+import GetProductById from '@useCase/product/getProductById.usecase';
+import ListAllProducts from '@useCase/product/listAllProducts.usecase';
 import {Router} from 'express';
 
 const router = Router();
