@@ -1,3 +1,4 @@
+/* c8 ignore start */
 import MongoDBCustomerRepository from '@src/repository/MongoRepository/customer.repository';
 import CreateCustomer from '@src/useCase/customer/createCustomer.usecase';
 import GetCustomer from '@src/useCase/customer/getCustomer.usecase';

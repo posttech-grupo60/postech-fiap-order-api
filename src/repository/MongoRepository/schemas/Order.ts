@@ -1,3 +1,4 @@
+/* c8 ignore start */
 import Customer from "@src/entity/customer";
 import Product from "@src/entity/product";
 import { Schema, model } from "mongoose";

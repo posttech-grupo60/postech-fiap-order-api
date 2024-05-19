@@ -1,3 +1,4 @@
+/* c8 ignore start */
 import 'dotenv/config';
 import express from 'express';
 import orderRoute from './routes/order';

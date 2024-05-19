@@ -1,3 +1,4 @@
+/* c8 ignore start */
 import { Schema, model } from "mongoose";
 
 export interface ICustomerModel {

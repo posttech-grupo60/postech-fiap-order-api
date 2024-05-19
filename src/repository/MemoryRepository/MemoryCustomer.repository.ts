@@ -16,6 +16,7 @@ export default class MemoryCustomerRepository implements ICustomerRepository {
   }
 
   async save(customer: Customer): Promise<Customer> {
+    customer.setId(this.customer.length + 1);
     this.customer.push(customer);
     return customer;
   }
