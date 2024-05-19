@@ -63,7 +63,7 @@ describe('Memory Repository Order', () => {
     });
 
     test('Should update order', async () => {
-        let [productToUpdate] = await memoryOrderRepository.list();
+        const [productToUpdate] = await memoryOrderRepository.list();
         productToUpdate.items[0].quantity = 2;
         const orderUpdated = await memoryOrderRepository.update(productToUpdate);
         expect(orderUpdated.id).toBe(productToUpdate.id);

@@ -23,7 +23,7 @@ export default class MongoDBCustomerRepository implements ICustomerRepository {
   }
 
   async save(customer: Customer): Promise<Customer> {
-    let queryCustomer = await CustomerModel.findOne({
+    const queryCustomer = await CustomerModel.findOne({
       cpf: customer?.cpf?.get(),
     });
     if (queryCustomer) throw new Error("Customer already registered.");

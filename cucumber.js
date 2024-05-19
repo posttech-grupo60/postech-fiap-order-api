@@ -1,5 +1,5 @@
 /* c8 ignore start */
-module.exports = {
+export default {
     default: {
         requireModule: ['ts-node/register'],
         paths: ['tests/bdd/features/*.feature'],

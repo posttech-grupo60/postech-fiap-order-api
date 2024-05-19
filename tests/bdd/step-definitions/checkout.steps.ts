@@ -20,6 +20,7 @@ class PaymentGatewayMock implements IPaymentGateway {
         })
     }
     getPayment(orderId: string): Promise<OutputGetPayment> {
+        console.log("orderId >>>",orderId);
         throw new Error('Method not implemented.');
     }
     
