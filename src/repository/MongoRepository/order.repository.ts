@@ -8,7 +8,8 @@ import ProductAdapter from "@src/adapter/ProductAdapter";
 
 export default class MongoDBOrderrepository implements IOrderRepository {
   async save(order: Order): Promise<Order> {
-    await new OrderModel(order).save();
+    const savedOrder = await new OrderModel(order).save();
+    order.setId(savedOrder.id);
     return order;
   }
   async list(): Promise<Order[]> {

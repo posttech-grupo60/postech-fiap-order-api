@@ -19,11 +19,11 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.get('/', (_, res) => {
+router.get('/', async (_, res) => {
     try {
         const productRepository = new MongoDBProductRepository();
         const listAllProducts = new ListAllProducts(productRepository);
-        const products = listAllProducts.execute();
+        const products = await listAllProducts.execute();
         return res.status(200).json(products);
     } catch (error) {
         return res.status(500).json({message: 'Erro ao criar produto, contate a administração', status: 500});
@@ -31,11 +31,11 @@ router.get('/', (_, res) => {
 });
 
 //Retorna produto específico
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
         const productRepository = new MongoDBProductRepository();
         const getProductById = new GetProductById(productRepository);
-        const product = getProductById.execute({id: Number(req.params.id)});
+        const product = await getProductById.execute({id: Number(req.params.id)});
         return res.status(200).json(product);
     } catch (error: any) {
         if(error.message === 'Product not found'){
@@ -46,12 +46,12 @@ router.get('/:id', (req, res) => {
 });
 
 //Deleta produto
-router.get('/:id', (req, res) => {
+router.delete('/:id', async(req, res) => {
     try {
         const productRepository = new MongoDBProductRepository();
         const getProductById = new GetProductById(productRepository);
-        const product = getProductById.execute({id: Number(req.params.id)});
-        return res.status(200).json(product);
+        await getProductById.execute({id: Number(req.params.id)});
+        return res.status(200).json({});
     } catch (error: any) {
         if(error.message === 'Product not found'){
             return res.status(404).json({message: 'Produto não encontrado', status: 404});
