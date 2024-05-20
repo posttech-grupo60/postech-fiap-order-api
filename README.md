@@ -12,7 +12,6 @@ Link do vídeo detalhando a etapa Produção pode ser visto <a href="https://www
 <b> App Produção (Java): </b> https://github.com/posttech-grupo60/api-producao <br>
 <b> Infra Etapa Produção com Terraform | Kubernetes | AWS (EKS): </b> https://github.com/grunbruno/tech-fase4-tf-k8s <br>
 
-
 ### Integrantes Grupo 76
 
 Gabriel da Silva Barreto<br>
