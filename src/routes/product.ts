@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* c8 ignore start */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import MongoDBProductRepository from '@repository/MongoRepository/product.repository';
 import CreateProduct from '@useCase/product/createProduct.usecase';
 import GetProductById from '@useCase/product/getProductById.usecase';
