@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* c8 ignore start */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import PaymentGateway from '@src/gateway/payment.gateway';
 import ProductionGateway from '@src/gateway/production.gateway';
 import MongoDBCustomerRepository from '@src/repository/MongoRepository/customer.repository';
@@ -12,7 +12,7 @@ import {Router} from 'express';
 
 const router = Router();
 
-router.get('/checkout', async (req, res) => {
+router.post('/checkout', async (req, res) => {
     try {
         const orderRepository = new MongoDBOrderrepository();
         const customerRepository = new MongoDBCustomerRepository();
@@ -22,6 +22,7 @@ router.get('/checkout', async (req, res) => {
         const response = await checkout.execute({...req.body});
         return res.status(200).json(response);
     } catch (error: any) {
+        console.log("🚀 ~ router.post ~ error:", error)
         return res.status(500).json({message: 'Erro no checkout, contate a administração', status: 500});
     }
 });
