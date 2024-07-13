@@ -1,5 +1,5 @@
 export interface IPaymentGateway {
-    createPayment(paymentInfo: InputCreatePayment): Promise<OutputCreatePayment>;
+    createPayment(paymentInfo: InputCreatePayment): Promise<void>;
 	getPayment(orderId: string): Promise<OutputGetPayment>;
 }
 

@@ -12,7 +12,7 @@ export default class Checkout {
     readonly paymentGateway: IPaymentGateway
   ) {}
 
-  async execute(input: InputCheckout): Promise<OutputCheckout> {
+  async execute(input: InputCheckout): Promise<void> {
     const { products, customerId } = input;
     const customer = await this.customerRepository.get({ id: customerId });
     if (!customer) throw new Error("Customer not found!");
@@ -32,16 +32,13 @@ export default class Checkout {
         };
       })
     );
-    const order = new Order({customer, items: itemsAndQuantities});
+    const order = new Order({ customer, items: itemsAndQuantities });
     const orderProcessed = await this.orderRepository.save(order);
-    if(!orderProcessed.id) throw new Error("Error to process order");
-    const paymentInfo = await this.paymentGateway.createPayment(
-      {
-        price: orderProcessed.getTotal(),
-        orderId: String(orderProcessed.id),
-      }
-    );
-    return paymentInfo;
+    if (!orderProcessed.id) throw new Error("Error to process order");
+    await this.paymentGateway.createPayment({
+      price: orderProcessed.getTotal(),
+      orderId: String(orderProcessed.id),
+    });
   }
 }
 
@@ -52,11 +49,3 @@ type InputCheckout = {
     quantity: number;
   }[];
 };
-
-type OutputCheckout = {
-    orderId: string;
-	price: number;
-	pay: boolean;
-	qrCode: string;
-	id: string;
-}

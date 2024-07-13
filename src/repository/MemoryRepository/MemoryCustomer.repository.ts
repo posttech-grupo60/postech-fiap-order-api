@@ -2,7 +2,7 @@ import Customer from "@src/entity/customer";
 import ICustomerRepository from "../interfaces/customer.interface";
 
 export default class MemoryCustomerRepository implements ICustomerRepository {
-  private readonly customer: Customer[] = [];
+  private customer: Customer[] = [];
 
   async get({ cpf, id }: { cpf?: string; id?: number }): Promise<Customer> {
     let customer;
@@ -19,5 +19,8 @@ export default class MemoryCustomerRepository implements ICustomerRepository {
     customer.setId(this.customer.length + 1);
     this.customer.push(customer);
     return customer;
+  }
+  async delete(cpf: string): Promise<void> {
+    this.customer = this.customer.filter((customer) => customer?.cpf?.get() !== cpf);
   }
 }
