@@ -3,6 +3,7 @@
 import MongoDBCustomerRepository from '@repository/MongoRepository/customer.repository';
 import CreateCustomer from '@useCase/customer/createCustomer.usecase';
 import GetCustomer from '@useCase/customer/getCustomer.usecase';
+import DeleteCustomer from '@useCase/customer/deleteCustomer.usecase';
 import {Router} from 'express';
 
 const router = Router();
@@ -42,6 +43,17 @@ router.get('/cpf/:cpf', async (req, res) => {
         if(error.message === 'Customer not found'){
             return res.status(404).json({message: 'Cliente não encontrado', status: 404});
         }
+        return res.status(500).json({message: 'Erro! Contate a administração.', status: 500});
+    }
+});
+
+router.delete('/:cpf', async (req, res) => {
+    try {
+        const customerRepository = new MongoDBCustomerRepository();
+        const deleteCustomer = new DeleteCustomer(customerRepository);
+        await deleteCustomer.execute({cpf: req.params.cpf});
+        return res.status(200).json({ status: 200});
+    } catch (error: any) {
         return res.status(500).json({message: 'Erro! Contate a administração.', status: 500});
     }
 });

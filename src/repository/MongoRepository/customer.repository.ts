@@ -30,4 +30,10 @@ export default class MongoDBCustomerRepository implements ICustomerRepository {
     await new CustomerModel({ ...customer, cpf: customer?.cpf?.get() }).save();
     return customer;
   }
+
+  async delete(cpf: string): Promise<void> {
+    await CustomerModel.deleteMany({
+      cpf,
+    });
+  }
 }
