@@ -26,7 +26,7 @@ router.get('/id/:id', async (req, res) => {
         const customer = await getCustomerById.execute({id: Number(req.params.id)});
         return res.status(200).json({data: customer, status: 200});
     } catch (error: any) {
-        if(error.message === 'Customer not found'){
+        if(error.message.includes('Customer not found')){
             return res.status(404).json({message: 'Cliente não encontrado', status: 404});
         }
         return res.status(500).json({message: 'Erro! Contate a administração.', status: 500});
@@ -40,7 +40,7 @@ router.get('/cpf/:cpf', async (req, res) => {
         const customer = await getCustomerByCPF.execute({cpf: req.params.cpf});
         return res.status(200).json({data: customer, status: 200});
     } catch (error: any) {
-        if(error.message === 'Customer not found'){
+        if(error.message.includes('Customer not found')){
             return res.status(404).json({message: 'Cliente não encontrado', status: 404});
         }
         return res.status(500).json({message: 'Erro! Contate a administração.', status: 500});

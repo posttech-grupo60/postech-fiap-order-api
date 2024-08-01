@@ -1,22 +1,10 @@
-import PaymentGateway from "@src/gateway/payment.gateway";
-import ProductionGateway from "@src/gateway/production.gateway";
-import MongoDBOrderRepository from "@src/repository/MongoRepository/order.repository";
-import VerifyPayment from "@src/useCase/order/verifyPayment.usecase";
 import envs from "@src/utils/envs";
 import * as AWS from "aws-sdk";
 const timeout = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
-export const verifyPaymentQueue = async () => {
+export const getPaymentDataQueue = async () => {
   try {
     const sqs = new AWS.SQS({ apiVersion: "2012-11-05" });
-    const orderRepository = new MongoDBOrderRepository();
-    const paymentGateway = new PaymentGateway();
-    const productionGateway = new ProductionGateway();
-    const verifyPayment = new VerifyPayment(
-      orderRepository,
-      paymentGateway,
-      productionGateway
-    );
     // eslint-disable-next-line no-constant-condition
     while (true) {
       sqs.receiveMessage(
@@ -24,7 +12,7 @@ export const verifyPaymentQueue = async () => {
           AttributeNames: ["SentTimestamp"],
           MaxNumberOfMessages: 10,
           MessageAttributeNames: ["All"],
-          QueueUrl: String(envs.QUEUE_RESULT_PAYMENT),
+          QueueUrl: String(envs.QUEUE_GET_PAYMENT),
           VisibilityTimeout: 20,
           WaitTimeSeconds: 0,
         },
@@ -38,12 +26,12 @@ export const verifyPaymentQueue = async () => {
             });
 
             parsedMessages.forEach(async (message) => {
-              await verifyPayment.execute({ ...message });
+              console.log("Informações para pagamento", message);
             });
 
             const messagesToDelete = data.Messages.map((message) => {
               return {
-                QueueUrl: String(process.env.QUEUE_RESULT_PAYMENT),
+                QueueUrl: String(process.env.QUEUE_GET_PAYMENT),
                 ReceiptHandle: message.ReceiptHandle ?? "",
               };
             });
