@@ -8,13 +8,15 @@ import envs from "./utils/envs";
 import { connect } from "mongoose";
 import * as AWS from "aws-sdk";
 import { verifyPaymentQueue } from "./queues/verifyPayments";
+import { getPaymentDataQueue } from "./queues/getPaymentData";
 
 AWS.config.update({ region: "us-east-1" });
 
 const main = async () => {
   await connect(envs.MONGO_URI);
 
-  verifyPaymentQueue();
+  // verifyPaymentQueue();
+  // getPaymentDataQueue();
 
   const app = express();
 
