@@ -9,16 +9,19 @@ import { connect } from "mongoose";
 import * as AWS from "aws-sdk";
 import { verifyPaymentQueue } from "./queues/verifyPayments";
 import { getPaymentDataQueue } from "./queues/getPaymentData";
+import Helmet from 'helmet'
 
 AWS.config.update({ region: "us-east-1" });
 
 const main = async () => {
   await connect(envs.MONGO_URI);
 
-  // verifyPaymentQueue();
-  // getPaymentDataQueue();
+  verifyPaymentQueue();
+  getPaymentDataQueue();
 
   const app = express();
+  app.use(Helmet())
+  app.disable('x-powered-by');
 
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
